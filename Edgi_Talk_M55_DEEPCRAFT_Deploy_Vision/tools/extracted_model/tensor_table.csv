@@ -1,0 +1,7 @@
+subgraph_index,subgraph_name,tensor_index,io_role,name,type,shape,shape_signature,buffer,scale,zero_point,quantized_dimension
+0,main,0,output,StatefulPartitionedCall:0,INT8,"[1, 6300, 8]",[],0,[0.015181781724095345],[-126],0
+0,main,1,,main_split_1_command_stream,UINT8,[34316],[],1,,,
+0,main,2,,main_split_1_flash,UINT8,[1686416],[],2,,,
+0,main,3,,main_split_1_scratch,UINT8,[824480],[],0,,,
+0,main,4,,main_split_1_scratch_fast,UINT8,[824480],[],0,,,
+0,main,5,input,serving_default_input_1:0,INT8,"[1, 320, 320, 3]",[],0,[0.003921568859368563],[-128],0

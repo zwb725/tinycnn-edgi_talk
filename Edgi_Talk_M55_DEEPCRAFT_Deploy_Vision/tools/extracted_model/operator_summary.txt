@@ -1,0 +1,9 @@
+TFLite bytes: 1722352
+OperatorCodes: 1
+Operators: 1
+
+Operator histogram:
+- ethos-u: 1
+
+Operators:
+- subgraph 0 #0: ethos-u (opcode_index=0, builtin=CUSTOM, custom=ethos-u, version=1, inputs=[1, 2, 3, 4, 5], outputs=[0])

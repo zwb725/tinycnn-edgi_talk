@@ -1,0 +1,51 @@
+# -*- coding: utf-8 -*-
+
+from building import *
+
+cwd = GetCurrentDir()
+group = []
+
+if not GetDepend(['RT_AI_USE_EDGI']):
+    Return('group')
+
+backend_dir = cwd + '/../../rt_ai_lib/backend_plugin_edgi'
+rt_ai_lib_dir = cwd + '/../../rt_ai_lib'
+rt_ai_include_dir = rt_ai_lib_dir + '/include'
+deepcraft_model_dir = cwd + '/../../libraries/Common/deepcraft_ai/model'
+
+src = []
+CPPPATH = [
+    cwd,
+    backend_dir,
+    rt_ai_lib_dir,
+    rt_ai_include_dir,
+    deepcraft_model_dir,
+]
+
+if GetDepend(['RT_AI_EDGI_MODEL_OBJECT_DETECT']):
+    generated_dir = cwd + '/generated/object_detect'
+
+    src += [
+        generated_dir + '/rt_ai_object_detect_model.c',
+    ]
+
+    CPPPATH += [
+        generated_dir,
+    ]
+# Add future Edgi model branches here with elif GetDepend([...]).
+else:
+    raise RuntimeError('RT-AK Edgi: no model selected')
+
+if GetDepend(['RT_AI_EDGI_MINIMAL_DEMO']):
+    src += [
+        cwd + '/rt_ai_edgi_minimal_demo.c',
+    ]
+
+group = DefineGroup(
+    'RT-AK-Edgi',
+    src,
+    depend=['RT_AI_USE_EDGI'],
+    CPPPATH=CPPPATH
+)
+
+Return('group')

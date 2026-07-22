@@ -1,0 +1,2 @@
+subgraph_index,subgraph_name,operator_index,opcode_index,operator,builtin_name,custom_code,version,inputs,outputs
+0,main,0,0,ethos-u,CUSTOM,ethos-u,1,1 2 3 4 5,0

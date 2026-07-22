@@ -1,0 +1,148 @@
+import os
+
+from building import *
+
+cwd = GetCurrentDir()
+group = []
+
+if not GetDepend(['USE_EXECUTORCH_TINYCNN']):
+    Return('group')
+
+tinycnn_repo_dir = os.path.abspath(os.path.join(
+    cwd,
+    '..',
+    '..',
+    '..',
+    'tinycnn-executorch',
+    'rtak_plugin_executorch'
+)).replace('\\', '/')
+
+tinycnn_model_dir = os.path.join(
+    tinycnn_repo_dir,
+    'examples',
+    'tinycnn',
+    'generated',
+    'embedded',
+    'models',
+    'tinycnn'
+).replace('\\', '/')
+
+executorch_backend_dir = os.path.join(
+    tinycnn_repo_dir,
+    'backend_executorch'
+).replace('\\', '/')
+
+model_c = tinycnn_model_dir + '/rt_ai_tinycnn_model_data.c'
+model_h = tinycnn_model_dir + '/rt_ai_tinycnn_model_data.h'
+backend_c = executorch_backend_dir + '/src/rt_ai_executorch_backend.c'
+backend_h = executorch_backend_dir + '/include/rt_ai_executorch_backend.h'
+runtime_cpp = executorch_backend_dir + '/src/rt_ai_executorch_runtime.cpp'
+
+if not os.path.isfile(model_c) or not os.path.isfile(model_h):
+    raise RuntimeError('TinyCNN ExecuTorch embedded PTE resource is missing')
+
+if not os.path.isfile(backend_c) or not os.path.isfile(backend_h):
+    raise RuntimeError('RT-AK ExecuTorch backend is missing')
+
+src = []
+CPPPATH = [
+    cwd,
+    tinycnn_model_dir,
+    executorch_backend_dir + '/include',
+]
+LIBPATH = []
+LIBS = []
+
+if GetDepend(['RT_AI_EXECUTORCH_MODEL_TINYCNN', 'RT_AI_EXECUTORCH_LOAD_EMBEDDED']):
+    src += [
+        model_c,
+    ]
+else:
+    raise RuntimeError('TinyCNN ExecuTorch requires embedded PTE mode')
+
+if GetDepend(['RT_AI_USE_EXECUTORCH']):
+    src += [
+        backend_c,
+    ]
+else:
+    raise RuntimeError('TinyCNN requires RT_AI_USE_EXECUTORCH')
+
+if GetDepend(['RT_AI_EXECUTORCH_RUNTIME_READY']):
+    if not os.path.isfile(runtime_cpp):
+        raise RuntimeError('RT-AK ExecuTorch runtime implementation is missing')
+
+    executorch_ws_root = '//wsl$/Ubuntu-22.04/home/zwb/work/ethosu_tinycnn'
+    executorch_src_root = executorch_ws_root
+    executorch_lib_root = executorch_ws_root + '/tinycnn/build/runner/executorch'
+    ethosu_core_driver_root = executorch_ws_root + '/tinycnn/build/runner/examples/arm/executor_runner/target/target/core_software/core_driver'
+    executorch_prim_ops_cpp = executorch_src_root + '/executorch/kernels/prim_ops/register_prim_ops.cpp'
+    executorch_quantized_register_cpp = executorch_lib_root + '/kernels/quantized/quantized_ops_lib/RegisterCodegenUnboxedKernels_0.cpp'
+
+    required_libs = [
+        executorch_lib_root + '/libexecutorch.a',
+        executorch_lib_root + '/libexecutorch_core.a',
+        executorch_lib_root + '/backends/arm/libexecutorch_delegate_ethos_u.a',
+        executorch_lib_root + '/kernels/portable/libportable_kernels.a',
+        executorch_lib_root + '/kernels/portable/cpu/util/libkernels_util_all_deps.a',
+        executorch_lib_root + '/kernels/quantized/libquantized_kernels.a',
+        executorch_lib_root + '/kernels/quantized/libquantized_ops_lib.a',
+        ethosu_core_driver_root + '/libethosu_core_driver.a',
+        executorch_prim_ops_cpp,
+        executorch_quantized_register_cpp,
+    ]
+
+    for lib in required_libs:
+        if not os.path.isfile(lib):
+            raise RuntimeError('ExecuTorch runtime library is missing: ' + lib)
+
+    src += [
+        runtime_cpp,
+        executorch_prim_ops_cpp,
+        executorch_quantized_register_cpp,
+    ]
+
+    CPPPATH += [
+        executorch_src_root,
+        executorch_src_root + '/executorch/extension/flat_tensor',
+        executorch_src_root + '/executorch/runtime/core/portable_type/c10',
+        executorch_src_root + '/.venv/lib/python3.10/site-packages/torch/include',
+        executorch_lib_root + '/kernels/quantized/quantized_ops_lib',
+    ]
+
+    LIBPATH += [
+        executorch_lib_root,
+        executorch_lib_root + '/backends/arm',
+        executorch_lib_root + '/kernels/portable',
+        executorch_lib_root + '/kernels/portable/cpu/util',
+        executorch_lib_root + '/kernels/quantized',
+        ethosu_core_driver_root,
+    ]
+
+    LIBS += [
+        'executorch',
+        'executorch_core',
+        'executorch_delegate_ethos_u',
+        'portable_kernels',
+        'kernels_util_all_deps',
+        'quantized_kernels',
+        'quantized_ops_lib',
+        'ethosu_core_driver',
+    ]
+
+group = DefineGroup(
+    'TinyCNN-ExecuTorch',
+    src,
+    depend=['USE_EXECUTORCH_TINYCNN'],
+    CPPPATH=CPPPATH,
+    LIBPATH=LIBPATH,
+    LIBS=LIBS,
+    LOCAL_CXXFLAGS=' -std=gnu++17',
+)
+
+Return('group')
+
+
+
+
+
+

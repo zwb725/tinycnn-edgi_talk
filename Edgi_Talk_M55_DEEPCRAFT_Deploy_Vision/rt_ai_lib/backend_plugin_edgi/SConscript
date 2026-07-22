@@ -1,0 +1,26 @@
+# RT-AK Plugin Edgi backend SConscript
+#
+# Current stage:
+# - compile backend_edgi.c
+# - model.c / model.h include path will be provided by final BSP integration
+
+from building import *
+
+cwd = GetCurrentDir()
+
+src = [
+    'backend_edgi.c',
+]
+
+CPPPATH = [
+    cwd,
+]
+
+group = DefineGroup(
+    'RT-AK-Edgi-Backend',
+    src,
+    depend=['RT_AI_USE_EDGI'],
+    CPPPATH=CPPPATH
+)
+
+Return('group')

@@ -1,0 +1,126 @@
+menu "TinyCNN ExecuTorch"
+
+comment "Disable RT-AK Edgi / IMAI before enabling TinyCNN ExecuTorch"
+    depends on RT_AI_USE_EDGI
+
+config USE_EXECUTORCH_TINYCNN
+    bool "Use TinyCNN ExecuTorch board-test path"
+    default n
+    depends on !RT_AI_USE_EDGI
+    help
+        Select the TinyCNN ExecuTorch board-test path as the Ethos-U55 owner.
+        This is disabled by default so the existing DeepCraft / IMAI project
+        remains buildable and recoverable.
+
+if USE_EXECUTORCH_TINYCNN
+
+config RT_AI_USE_EXECUTORCH
+    bool "Enable RT-AK ExecuTorch backend"
+    default y
+
+config RT_AI_EXECUTORCH_MODEL_TINYCNN
+    bool "Enable TinyCNN ExecuTorch PTE resource"
+    default y
+
+config RT_AI_EXECUTORCH_LOAD_EMBEDDED
+    bool "Load TinyCNN PTE from embedded C array"
+    default y
+
+config RT_AI_EXECUTORCH_RUNTIME_READY
+    bool "ExecuTorch target runtime has been ported"
+    default n
+    help
+        Keep this disabled until the BSP contains a real Cortex-M55
+        ExecuTorch Runtime and Arm/Ethos-U backend implementation for Program
+        loading, Method loading, planned buffers, tensor binding, execution,
+        output retrieval, and delegate registration.
+
+config RT_AI_EXECUTORCH_DEBUG_LOG
+    int "Enable verbose ExecuTorch debug logs (0/1)"
+    default 0
+    range 0 1
+    depends on RT_AI_EXECUTORCH_RUNTIME_READY
+    help
+        Set to 1 to enable detailed Tensor binding, pre/post execute ticks,
+        PAL Info/Debug, and Ethos-U platform init/deinit success logs. Keep
+        this at 0 for stability loops and timing measurements.
+
+config RT_AI_EXECUTORCH_METHOD_POOL_SIZE
+    int "ExecuTorch method pool size in bytes"
+    default 524288
+    range 65536 2097152
+    depends on RT_AI_EXECUTORCH_RUNTIME_READY
+    help
+        Static allocator pool used by ExecuTorch method loading and planned
+        memory buffers. The current TinyCNN board baseline passes with 524288.
+
+config RT_AI_EXECUTORCH_TEMP_POOL_SIZE
+    int "ExecuTorch temporary pool size in bytes"
+    default 524288
+    range 65536 2097152
+    depends on RT_AI_EXECUTORCH_RUNTIME_READY
+    help
+        Temporary allocator pool used during Method::execute(). The current
+        TinyCNN board baseline passes with 524288.
+
+config RT_AI_EXECUTORCH_MAX_PLANNED_BUFFERS
+    int "ExecuTorch max planned buffer count"
+    default 8
+    range 1 32
+    depends on RT_AI_EXECUTORCH_RUNTIME_READY
+    help
+        Upper bound for MethodMeta planned memory buffers accepted by this
+        firmware port. TinyCNN currently uses one planned buffer.
+
+config RT_AI_EXECUTORCH_MAX_IO_TENSORS
+    int "ExecuTorch max input/output tensor count"
+    default 4
+    range 1 16
+    depends on RT_AI_EXECUTORCH_RUNTIME_READY
+    help
+        Upper bound for method input and output tensors accepted by this
+        firmware port. TinyCNN currently has one input and one output.
+
+config RT_AI_EXECUTORCH_ETHOSU_IRQ_PRIORITY
+    int "Ethos-U IRQ priority"
+    default 5
+    range 0 7
+    depends on RT_AI_EXECUTORCH_RUNTIME_READY
+    help
+        NVIC priority used for the PSoC Edge U55 interrupt. The current board
+        baseline passes with priority 5.
+
+config RT_AI_EXECUTORCH_ETHOSU_WAIT_TIMEOUT_MS
+    int "Ethos-U wait timeout in milliseconds"
+    default 5000
+    range 1 60000
+    depends on RT_AI_EXECUTORCH_RUNTIME_READY
+    help
+        Maximum RT-Thread semaphore wait used when the Ethos-U driver asks for
+        an infinite wait. The current debug-safe baseline uses 5000 ms.
+
+config RT_AI_EXECUTORCH_ETHOSU_CACHE_RANGE
+    int "Use range-based Ethos-U cache maintenance (0/1)"
+    default 0
+    range 0 1
+    depends on RT_AI_EXECUTORCH_RUNTIME_READY
+    help
+        Set to 1 to clean/invalidate only Ethos-U base-address ranges. Set to
+        0 to use whole-cache maintenance, which is the conservative fallback.
+
+config RT_AI_EXECUTORCH_ETHOSU_CACHE_LINE_SIZE
+    int "Ethos-U cache line size in bytes"
+    default 32
+    range 16 128
+    depends on RT_AI_EXECUTORCH_RUNTIME_READY
+    help
+        Cache line size used to align range-based cache maintenance requests.
+        Cortex-M55 data cache lines are normally 32 bytes.
+
+config RT_AI_EXECUTORCH_BOARD_TEST
+    bool "Enable TinyCNN ExecuTorch MSH board-test command"
+    default y
+
+endif
+
+endmenu

@@ -1,0 +1,196 @@
+{
+  "model_file": "C:\\RT-ThreadStudio\\workspace\\Edgi_Talk_M55_DEEPCRAFT_Deploy_Vision\\tools\\extracted_model\\model_from_K3.tflite",
+  "tflite_bytes": 1722352,
+  "description": "Vela 4.3.0 Optimised",
+  "subgraph_ios": [
+    {
+      "subgraph_index": 0,
+      "name": "main",
+      "inputs": [
+        5
+      ],
+      "outputs": [
+        0
+      ]
+    }
+  ],
+  "tensors": [
+    {
+      "subgraph_index": 0,
+      "subgraph_name": "main",
+      "tensor_index": 0,
+      "io_role": "output",
+      "name": "StatefulPartitionedCall:0",
+      "type": "INT8",
+      "shape": "[1, 6300, 8]",
+      "shape_signature": "[]",
+      "buffer": 0,
+      "scale": "[0.015181781724095345]",
+      "zero_point": "[-126]",
+      "quantized_dimension": 0
+    },
+    {
+      "subgraph_index": 0,
+      "subgraph_name": "main",
+      "tensor_index": 1,
+      "io_role": "",
+      "name": "main_split_1_command_stream",
+      "type": "UINT8",
+      "shape": "[34316]",
+      "shape_signature": "[]",
+      "buffer": 1,
+      "scale": "",
+      "zero_point": "",
+      "quantized_dimension": ""
+    },
+    {
+      "subgraph_index": 0,
+      "subgraph_name": "main",
+      "tensor_index": 2,
+      "io_role": "",
+      "name": "main_split_1_flash",
+      "type": "UINT8",
+      "shape": "[1686416]",
+      "shape_signature": "[]",
+      "buffer": 2,
+      "scale": "",
+      "zero_point": "",
+      "quantized_dimension": ""
+    },
+    {
+      "subgraph_index": 0,
+      "subgraph_name": "main",
+      "tensor_index": 3,
+      "io_role": "",
+      "name": "main_split_1_scratch",
+      "type": "UINT8",
+      "shape": "[824480]",
+      "shape_signature": "[]",
+      "buffer": 0,
+      "scale": "",
+      "zero_point": "",
+      "quantized_dimension": ""
+    },
+    {
+      "subgraph_index": 0,
+      "subgraph_name": "main",
+      "tensor_index": 4,
+      "io_role": "",
+      "name": "main_split_1_scratch_fast",
+      "type": "UINT8",
+      "shape": "[824480]",
+      "shape_signature": "[]",
+      "buffer": 0,
+      "scale": "",
+      "zero_point": "",
+      "quantized_dimension": ""
+    },
+    {
+      "subgraph_index": 0,
+      "subgraph_name": "main",
+      "tensor_index": 5,
+      "io_role": "input",
+      "name": "serving_default_input_1:0",
+      "type": "INT8",
+      "shape": "[1, 320, 320, 3]",
+      "shape_signature": "[]",
+      "buffer": 0,
+      "scale": "[0.003921568859368563]",
+      "zero_point": "[-128]",
+      "quantized_dimension": 0
+    }
+  ],
+  "buffers": [
+    {
+      "buffer_index": 0,
+      "data_bytes": 0,
+      "offset": 0,
+      "size": 0
+    },
+    {
+      "buffer_index": 1,
+      "data_bytes": 34316,
+      "offset": 0,
+      "size": 0
+    },
+    {
+      "buffer_index": 2,
+      "data_bytes": 1686416,
+      "offset": 0,
+      "size": 0
+    },
+    {
+      "buffer_index": 3,
+      "data_bytes": 16,
+      "offset": 0,
+      "size": 0
+    },
+    {
+      "buffer_index": 4,
+      "data_bytes": 88,
+      "offset": 0,
+      "size": 0
+    },
+    {
+      "buffer_index": 5,
+      "data_bytes": 256,
+      "offset": 0,
+      "size": 0
+    },
+    {
+      "buffer_index": 6,
+      "data_bytes": 5,
+      "offset": 0,
+      "size": 0
+    },
+    {
+      "buffer_index": 7,
+      "data_bytes": 36,
+      "offset": 0,
+      "size": 0
+    }
+  ],
+  "metadata_buffer": [],
+  "metadata": [
+    {
+      "metadata_index": 0,
+      "name": "min_runtime_version",
+      "buffer": 3,
+      "buffer_data_bytes": 16,
+      "buffer_offset": 0,
+      "buffer_size": 0
+    },
+    {
+      "metadata_index": 1,
+      "name": "CONVERSION_METADATA",
+      "buffer": 4,
+      "buffer_data_bytes": 88,
+      "buffer_offset": 0,
+      "buffer_size": 0
+    },
+    {
+      "metadata_index": 2,
+      "name": "TFLITE_METADATA",
+      "buffer": 5,
+      "buffer_data_bytes": 256,
+      "buffer_offset": 0,
+      "buffer_size": 0
+    },
+    {
+      "metadata_index": 3,
+      "name": "vela_version",
+      "buffer": 6,
+      "buffer_data_bytes": 5,
+      "buffer_offset": 0,
+      "buffer_size": 0
+    },
+    {
+      "metadata_index": 4,
+      "name": "OfflineMemoryAllocation",
+      "buffer": 7,
+      "buffer_data_bytes": 36,
+      "buffer_offset": 0,
+      "buffer_size": 0
+    }
+  ]
+}

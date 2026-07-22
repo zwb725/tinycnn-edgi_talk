@@ -1,0 +1,34 @@
+{
+  "operator_codes": [
+    {
+      "index": 0,
+      "builtin_code": 32,
+      "builtin_name": "CUSTOM",
+      "deprecated_builtin_code": 32,
+      "custom_code": "ethos-u",
+      "version": 1
+    }
+  ],
+  "operators": [
+    {
+      "subgraph_index": 0,
+      "subgraph_name": "main",
+      "operator_index": 0,
+      "opcode_index": 0,
+      "operator": "ethos-u",
+      "builtin_name": "CUSTOM",
+      "custom_code": "ethos-u",
+      "version": 1,
+      "inputs": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "outputs": [
+        0
+      ]
+    }
+  ]
+}

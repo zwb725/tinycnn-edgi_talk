@@ -1,0 +1,55 @@
+menu "RT-AK Edgi"
+
+menuconfig RT_AI_USE_EDGI
+    bool "Enable RT-AK Edgi backend"
+    default n
+    help
+        Enable RT-AK backend adapter for Edgi Talk / DeepCraft /
+        Cortex-M55 / Ethos-U55 model inference.
+
+        This option only enables the RT-AK backend and minimal demo.
+        It does not enable UVC camera, LCD overlay or model-specific
+        postprocess logic.
+
+if RT_AI_USE_EDGI
+
+config USE_IMAI_GESTURE
+    bool "Use DeepCraft / IMAI inference path"
+    default y
+    help
+        Keep the existing DeepCraft / IMAI path selected as the Ethos-U55
+        owner. Disable this path before enabling the TinyCNN ExecuTorch
+        board-test path.
+
+choice
+    prompt "Select Edgi AI model"
+    default RT_AI_EDGI_MODEL_OBJECT_DETECT
+
+config RT_AI_EDGI_MODEL_OBJECT_DETECT
+    bool "Object detect model"
+    help
+        Build the current DeepCraft object detection model.
+        Only one Edgi model is linked into the firmware.
+
+endchoice
+
+# Future model choices can be added here, for example
+# RT_AI_EDGI_MODEL_HAND_GESTURE or RT_AI_EDGI_MODEL_FACE_DETECT.
+
+config RT_AI_USE_M55_ETHOSU
+    bool "Enable Cortex-M55 / Ethos-U55 runtime binding"
+    default y
+    help
+        Enable the Edgi backend path targeting Cortex-M55 and Ethos-U55.
+        The actual Ethos-U55 / TFLM / DeepCraft runtime is still provided
+        by the existing Edgi Talk BSP.
+
+config RT_AI_EDGI_MINIMAL_DEMO
+    bool "Enable Edgi RT-AK minimal MSH demo"
+    default y
+    help
+        Build rt_ai_edgi_minimal_demo command for board-side validation.
+
+endif
+
+endmenu

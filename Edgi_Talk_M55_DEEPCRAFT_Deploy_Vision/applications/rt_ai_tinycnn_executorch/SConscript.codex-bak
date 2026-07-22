@@ -1,0 +1,77 @@
+import os
+
+from building import *
+
+cwd = GetCurrentDir()
+group = []
+
+if not GetDepend(['USE_EXECUTORCH_TINYCNN']):
+    Return('group')
+
+tinycnn_repo_dir = os.path.abspath(os.path.join(
+    cwd,
+    '..',
+    '..',
+    '..',
+    'tinycnn-executorch',
+    'rtak_plugin_executorch'
+)).replace('\\', '/')
+
+tinycnn_model_dir = os.path.join(
+    tinycnn_repo_dir,
+    'examples',
+    'tinycnn',
+    'generated',
+    'embedded',
+    'models',
+    'tinycnn'
+).replace('\\', '/')
+
+executorch_backend_dir = os.path.join(
+    tinycnn_repo_dir,
+    'backend_executorch'
+).replace('\\', '/')
+
+model_c = tinycnn_model_dir + '/rt_ai_tinycnn_model_data.c'
+model_h = tinycnn_model_dir + '/rt_ai_tinycnn_model_data.h'
+backend_c = executorch_backend_dir + '/src/rt_ai_executorch_backend.c'
+backend_h = executorch_backend_dir + '/include/rt_ai_executorch_backend.h'
+
+if not os.path.isfile(model_c) or not os.path.isfile(model_h):
+    raise RuntimeError('TinyCNN ExecuTorch embedded PTE resource is missing')
+
+if not os.path.isfile(backend_c) or not os.path.isfile(backend_h):
+    raise RuntimeError('RT-AK ExecuTorch backend prototype is missing')
+
+src = [
+    cwd + '/tinycnn_executorch_probe.c',
+]
+
+CPPPATH = [
+    cwd,
+    tinycnn_model_dir,
+    executorch_backend_dir + '/include',
+]
+
+if GetDepend(['RT_AI_EXECUTORCH_MODEL_TINYCNN', 'RT_AI_EXECUTORCH_LOAD_EMBEDDED']):
+    src += [
+        model_c,
+    ]
+else:
+    raise RuntimeError('TinyCNN ExecuTorch phase 1 requires embedded PTE mode')
+
+if GetDepend(['RT_AI_USE_EXECUTORCH']):
+    src += [
+        backend_c,
+    ]
+else:
+    raise RuntimeError('TinyCNN runtime probe requires RT_AI_USE_EXECUTORCH')
+
+group = DefineGroup(
+    'TinyCNN-ExecuTorch',
+    src,
+    depend=['USE_EXECUTORCH_TINYCNN'],
+    CPPPATH=CPPPATH,
+)
+
+Return('group')
