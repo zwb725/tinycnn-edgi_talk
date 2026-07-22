@@ -1,0 +1,55 @@
+#include "rt_ai_executorch_backend.h"
+
+#ifndef RT_AI_EXECUTORCH_RUNTIME_READY
+#define RT_AI_EXECUTORCH_RUNTIME_READY 0
+#endif
+
+static const rt_ai_executorch_config_t *g_config;
+
+int rt_ai_executorch_init(const rt_ai_executorch_config_t *config)
+{
+    g_config = config;
+#if RT_AI_EXECUTORCH_RUNTIME_READY
+    /* Future porting hook:
+     * - load ExecuTorch Program from embedded/QSPI PTE
+     * - load Method
+     * - create MemoryAllocator and planned buffers
+     * - register Ethos-U delegate backend
+     * - bind input/output tensors
+     */
+    (void)g_config;
+    return RT_AI_EXECUTORCH_ENOSYS;
+#else
+    (void)g_config;
+    return RT_AI_EXECUTORCH_ENOSYS;
+#endif
+}
+
+void *rt_ai_executorch_get_input(size_t *size_bytes)
+{
+    if (size_bytes != 0)
+    {
+        *size_bytes = 0;
+    }
+    return 0;
+}
+
+int rt_ai_executorch_run(void)
+{
+    return RT_AI_EXECUTORCH_ENOSYS;
+}
+
+const void *rt_ai_executorch_get_output(size_t *size_bytes)
+{
+    if (size_bytes != 0)
+    {
+        *size_bytes = 0;
+    }
+    return 0;
+}
+
+int rt_ai_executorch_deinit(void)
+{
+    g_config = 0;
+    return RT_AI_EXECUTORCH_OK;
+}

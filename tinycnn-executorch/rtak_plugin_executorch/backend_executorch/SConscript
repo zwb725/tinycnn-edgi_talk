@@ -1,0 +1,18 @@
+import os
+
+from building import *
+
+cwd = GetCurrentDir()
+src = Glob(os.path.join(cwd, 'src', '*.c'))
+CPPPATH = [os.path.join(cwd, 'include')]
+
+if GetDepend('RT_AI_EXECUTORCH_MODEL_TINYCNN') and GetDepend('RT_AI_EXECUTORCH_LOAD_EMBEDDED'):
+    src += Glob(os.path.join(cwd, '..', 'models', 'tinycnn', '*.c'))
+    CPPPATH += [os.path.join(cwd, '..', 'models', 'tinycnn')]
+
+if GetDepend('RT_AI_EXECUTORCH_RUNTIME_READY'):
+    src += Glob(os.path.join(cwd, 'src', '*.cpp'))
+
+group = DefineGroup('rt_ai_executorch', src, depend=['RT_AI_USE_EXECUTORCH'], CPPPATH=CPPPATH)
+
+Return('group')

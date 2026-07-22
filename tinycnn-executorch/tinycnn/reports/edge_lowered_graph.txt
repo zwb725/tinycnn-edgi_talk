@@ -1,0 +1,8 @@
+graph():
+    %x : [num_users=1] = placeholder[target=x]
+    %quantized_decomposed_quantize_per_tensor_default : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.quantize_per_tensor.default](args = (%x, 0.003919648006558418, -128, -128, 127, torch.int8), kwargs = {})
+    %lowered_module_0 : [num_users=1] = get_attr[target=lowered_module_0]
+    %executorch_call_delegate : [num_users=1] = call_function[target=torch.ops.higher_order.executorch_call_delegate](args = (%lowered_module_0, %quantized_decomposed_quantize_per_tensor_default), kwargs = {})
+    %getitem : [num_users=1] = call_function[target=operator.getitem](args = (%executorch_call_delegate, 0), kwargs = {})
+    %quantized_decomposed_dequantize_per_tensor_default_6 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.dequantize_per_tensor.default](args = (%getitem, 0.0004968902794644237, -8, -128, 127, torch.int8), kwargs = {})
+    return (quantized_decomposed_dequantize_per_tensor_default_6,)

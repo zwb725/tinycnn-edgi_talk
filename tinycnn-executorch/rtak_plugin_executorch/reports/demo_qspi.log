@@ -1,0 +1,9 @@
+validate_pte:/home/zwb/work/ethosu_tinycnn/tinycnn/build/tinycnn_u55.pte
+copy:/home/zwb/work/ethosu_tinycnn/tinycnn/build/tinycnn_u55.pte->/home/zwb/work/ethosu_tinycnn/rtak_plugin_executorch/examples/tinycnn/generated/qspi/resources/tinycnn_u55.pte
+copy:/home/zwb/work/ethosu_tinycnn/rtak_plugin_executorch/backend_executorch/Kconfig->/home/zwb/work/ethosu_tinycnn/rtak_plugin_executorch/examples/tinycnn/generated/qspi/backend_executorch/Kconfig
+copy:/home/zwb/work/ethosu_tinycnn/rtak_plugin_executorch/backend_executorch/README.md->/home/zwb/work/ethosu_tinycnn/rtak_plugin_executorch/examples/tinycnn/generated/qspi/backend_executorch/README.md
+copy:/home/zwb/work/ethosu_tinycnn/rtak_plugin_executorch/backend_executorch/SConscript->/home/zwb/work/ethosu_tinycnn/rtak_plugin_executorch/examples/tinycnn/generated/qspi/backend_executorch/SConscript
+copy:/home/zwb/work/ethosu_tinycnn/rtak_plugin_executorch/backend_executorch/include/rt_ai_executorch_backend.h->/home/zwb/work/ethosu_tinycnn/rtak_plugin_executorch/examples/tinycnn/generated/qspi/backend_executorch/include/rt_ai_executorch_backend.h
+copy:/home/zwb/work/ethosu_tinycnn/rtak_plugin_executorch/backend_executorch/src/rt_ai_executorch_backend.c->/home/zwb/work/ethosu_tinycnn/rtak_plugin_executorch/examples/tinycnn/generated/qspi/backend_executorch/src/rt_ai_executorch_backend.c
+write:/home/zwb/work/ethosu_tinycnn/rtak_plugin_executorch/examples/tinycnn/generated/qspi/model_manifest.json
+manifest:/home/zwb/work/ethosu_tinycnn/rtak_plugin_executorch/examples/tinycnn/generated/qspi/model_manifest.json

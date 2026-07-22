@@ -1,0 +1,59 @@
+## lowered_module_0
+
+graph():
+    %b__scale_0 : [num_users=1] = placeholder[target=b__scale_0]
+    %b__zero_point_0 : [num_users=1] = placeholder[target=b__zero_point_0]
+    %b__scale_1 : [num_users=1] = placeholder[target=b__scale_1]
+    %b__zero_point_1 : [num_users=1] = placeholder[target=b__zero_point_1]
+    %b__scale_2 : [num_users=1] = placeholder[target=b__scale_2]
+    %b__zero_point_2 : [num_users=1] = placeholder[target=b__zero_point_2]
+    %b__scale_3 : [num_users=1] = placeholder[target=b__scale_3]
+    %b__zero_point_3 : [num_users=1] = placeholder[target=b__zero_point_3]
+    %b__scale_4 : [num_users=1] = placeholder[target=b__scale_4]
+    %b__zero_point_4 : [num_users=1] = placeholder[target=b__zero_point_4]
+    %b__scale_5 : [num_users=1] = placeholder[target=b__scale_5]
+    %b__zero_point_5 : [num_users=1] = placeholder[target=b__zero_point_5]
+    %b__scale_6 : [num_users=1] = placeholder[target=b__scale_6]
+    %b__zero_point_6 : [num_users=1] = placeholder[target=b__zero_point_6]
+    %b__scale_7 : [num_users=1] = placeholder[target=b__scale_7]
+    %b__zero_point_7 : [num_users=1] = placeholder[target=b__zero_point_7]
+    %b__frozen_param0 : [num_users=1] = placeholder[target=b__frozen_param0]
+    %b__frozen_param1 : [num_users=1] = placeholder[target=b__frozen_param1]
+    %b__frozen_param2 : [num_users=1] = placeholder[target=b__frozen_param2]
+    %b__frozen_param3 : [num_users=1] = placeholder[target=b__frozen_param3]
+    %b__frozen_param4 : [num_users=1] = placeholder[target=b__frozen_param4]
+    %b__frozen_param5 : [num_users=1] = placeholder[target=b__frozen_param5]
+    %b__frozen_param6 : [num_users=1] = placeholder[target=b__frozen_param6]
+    %b__frozen_param7 : [num_users=1] = placeholder[target=b__frozen_param7]
+    %quantized_decomposed_quantize_per_tensor_default : [num_users=1] = placeholder[target=quantized_decomposed_quantize_per_tensor_default]
+    %quantized_decomposed_dequantize_per_tensor_default : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.dequantize_per_tensor.default](args = (%quantized_decomposed_quantize_per_tensor_default, 0.003919648006558418, -128, -128, 127, torch.int8), kwargs = {})
+    %quantized_decomposed_dequantize_per_channel_default : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.dequantize_per_channel.default](args = (%b__frozen_param0, %b__scale_0, %b__zero_point_0, 0, -127, 127, torch.int8), kwargs = {})
+    %quantized_decomposed_dequantize_per_channel_default_1 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.dequantize_per_channel.default](args = (%b__frozen_param1, %b__scale_1, %b__zero_point_1, 0, -2147483647, 2147483647, torch.int32), kwargs = {})
+    %aten_convolution_default : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.aten.convolution.default](args = (%quantized_decomposed_dequantize_per_tensor_default, %quantized_decomposed_dequantize_per_channel_default, %quantized_decomposed_dequantize_per_channel_default_1, [2, 2], [1, 1], [1, 1], False, [0, 0], 1), kwargs = {})
+    %aten_relu_default : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.aten.relu.default](args = (%aten_convolution_default,), kwargs = {})
+    %quantized_decomposed_quantize_per_tensor_default_1 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.quantize_per_tensor.default](args = (%aten_relu_default, 0.004264777060598135, -128, -128, 127, torch.int8), kwargs = {})
+    %quantized_decomposed_dequantize_per_tensor_default_1 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.dequantize_per_tensor.default](args = (%quantized_decomposed_quantize_per_tensor_default_1, 0.004264777060598135, -128, -128, 127, torch.int8), kwargs = {})
+    %quantized_decomposed_dequantize_per_channel_default_2 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.dequantize_per_channel.default](args = (%b__frozen_param2, %b__scale_2, %b__zero_point_2, 0, -127, 127, torch.int8), kwargs = {})
+    %quantized_decomposed_dequantize_per_channel_default_3 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.dequantize_per_channel.default](args = (%b__frozen_param3, %b__scale_3, %b__zero_point_3, 0, -2147483647, 2147483647, torch.int32), kwargs = {})
+    %aten_convolution_default_1 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.aten.convolution.default](args = (%quantized_decomposed_dequantize_per_tensor_default_1, %quantized_decomposed_dequantize_per_channel_default_2, %quantized_decomposed_dequantize_per_channel_default_3, [2, 2], [1, 1], [1, 1], False, [0, 0], 1), kwargs = {})
+    %aten_relu_default_1 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.aten.relu.default](args = (%aten_convolution_default_1,), kwargs = {})
+    %quantized_decomposed_quantize_per_tensor_default_2 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.quantize_per_tensor.default](args = (%aten_relu_default_1, 0.0015989711973816156, -128, -128, 127, torch.int8), kwargs = {})
+    %quantized_decomposed_dequantize_per_tensor_default_2 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.dequantize_per_tensor.default](args = (%quantized_decomposed_quantize_per_tensor_default_2, 0.0015989711973816156, -128, -128, 127, torch.int8), kwargs = {})
+    %quantized_decomposed_dequantize_per_channel_default_4 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.dequantize_per_channel.default](args = (%b__frozen_param4, %b__scale_4, %b__zero_point_4, 0, -127, 127, torch.int8), kwargs = {})
+    %quantized_decomposed_dequantize_per_channel_default_5 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.dequantize_per_channel.default](args = (%b__frozen_param5, %b__scale_5, %b__zero_point_5, 0, -2147483647, 2147483647, torch.int32), kwargs = {})
+    %aten_convolution_default_2 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.aten.convolution.default](args = (%quantized_decomposed_dequantize_per_tensor_default_2, %quantized_decomposed_dequantize_per_channel_default_4, %quantized_decomposed_dequantize_per_channel_default_5, [2, 2], [1, 1], [1, 1], False, [0, 0], 1), kwargs = {})
+    %aten_relu_default_2 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.aten.relu.default](args = (%aten_convolution_default_2,), kwargs = {})
+    %quantized_decomposed_quantize_per_tensor_default_3 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.quantize_per_tensor.default](args = (%aten_relu_default_2, 0.0006584703805856407, -128, -128, 127, torch.int8), kwargs = {})
+    %quantized_decomposed_dequantize_per_tensor_default_3 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.dequantize_per_tensor.default](args = (%quantized_decomposed_quantize_per_tensor_default_3, 0.0006584703805856407, -128, -128, 127, torch.int8), kwargs = {})
+    %aten_avg_pool2d_default : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.aten.avg_pool2d.default](args = (%quantized_decomposed_dequantize_per_tensor_default_3, [12, 12], [1, 1], [0, 0], False, False), kwargs = {})
+    %quantized_decomposed_quantize_per_tensor_default_4 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.quantize_per_tensor.default](args = (%aten_avg_pool2d_default, 0.0006584703805856407, -128, -128, 127, torch.int8), kwargs = {})
+    %quantized_decomposed_dequantize_per_tensor_default_4 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.dequantize_per_tensor.default](args = (%quantized_decomposed_quantize_per_tensor_default_4, 0.0006584703805856407, -128, -128, 127, torch.int8), kwargs = {})
+    %aten_view_copy_default : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.aten.view_copy.default](args = (%quantized_decomposed_dequantize_per_tensor_default_4, [1, 64]), kwargs = {})
+    %quantized_decomposed_quantize_per_tensor_default_5 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.quantize_per_tensor.default](args = (%aten_view_copy_default, 0.0006584703805856407, -128, -128, 127, torch.int8), kwargs = {})
+    %quantized_decomposed_dequantize_per_tensor_default_5 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.dequantize_per_tensor.default](args = (%quantized_decomposed_quantize_per_tensor_default_5, 0.0006584703805856407, -128, -128, 127, torch.int8), kwargs = {})
+    %quantized_decomposed_dequantize_per_channel_default_6 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.dequantize_per_channel.default](args = (%b__frozen_param6, %b__scale_6, %b__zero_point_6, 0, -127, 127, torch.int8), kwargs = {})
+    %quantized_decomposed_dequantize_per_channel_default_7 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.dequantize_per_channel.default](args = (%b__frozen_param7, %b__scale_7, %b__zero_point_7, 0, -2147483647, 2147483647, torch.int32), kwargs = {})
+    %aten_linear_default : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.aten.linear.default](args = (%quantized_decomposed_dequantize_per_tensor_default_5, %quantized_decomposed_dequantize_per_channel_default_6, %quantized_decomposed_dequantize_per_channel_default_7), kwargs = {})
+    %quantized_decomposed_quantize_per_tensor_default_6 : [num_users=1] = call_function[target=executorch.exir.dialects.edge._ops.quantized_decomposed.quantize_per_tensor.default](args = (%aten_linear_default, 0.0004968902794644237, -8, -128, 127, torch.int8), kwargs = {})
+    return [quantized_decomposed_quantize_per_tensor_default_6]
+

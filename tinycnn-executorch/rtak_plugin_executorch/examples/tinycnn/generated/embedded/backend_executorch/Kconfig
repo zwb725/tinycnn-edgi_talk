@@ -1,0 +1,27 @@
+menuconfig RT_AI_USE_EXECUTORCH
+    bool "Enable RT-AK ExecuTorch backend prototype"
+    default n
+
+if RT_AI_USE_EXECUTORCH
+
+config RT_AI_EXECUTORCH_MODEL_TINYCNN
+    bool "Enable TinyCNN ExecuTorch PTE resource"
+    default y
+
+config RT_AI_EXECUTORCH_LOAD_EMBEDDED
+    bool "Load ExecuTorch PTE from embedded C array"
+    default y
+
+config RT_AI_EXECUTORCH_LOAD_QSPI
+    bool "Load ExecuTorch PTE from QSPI/resource file"
+    default n
+
+config RT_AI_EXECUTORCH_RUNTIME_READY
+    bool "ExecuTorch target runtime has been ported"
+    default n
+    help
+      Keep this disabled until Program loading, Method loading,
+      MemoryAllocator setup, Ethos-U delegate registration, and tensor
+      binding have been implemented and validated on the target BSP.
+
+endif

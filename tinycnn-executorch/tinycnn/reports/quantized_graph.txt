@@ -1,0 +1,64 @@
+graph():
+    %x : [num_users=1] = placeholder[target=x]
+    %quantize_per_tensor_default : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.quantize_per_tensor.default](args = (%x, 0.003919648006558418, -128, -128, 127, torch.int8), kwargs = {})
+    %dequantize_per_tensor_default : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.dequantize_per_tensor.default](args = (%quantize_per_tensor_default, 0.003919648006558418, -128, -128, 127, torch.int8), kwargs = {})
+    %_scale_0 : [num_users=1] = get_attr[target=_scale_0]
+    %_zero_point_0 : [num_users=1] = get_attr[target=_zero_point_0]
+    %quantize_per_channel_default : [num_users=1] = get_attr[target=_frozen_param0]
+    %dequantize_per_channel_default : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.dequantize_per_channel.default](args = (%quantize_per_channel_default, %_scale_0, %_zero_point_0, 0, -127, 127, torch.int8), kwargs = {})
+    %_scale_1 : [num_users=1] = get_attr[target=_scale_1]
+    %_zero_point_1 : [num_users=1] = get_attr[target=_zero_point_1]
+    %quantize_per_channel_default_1 : [num_users=1] = get_attr[target=_frozen_param1]
+    %dequantize_per_channel_default_1 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.dequantize_per_channel.default](args = (%quantize_per_channel_default_1, %_scale_1, %_zero_point_1, 0, -2147483647, 2147483647, torch.int32), kwargs = {})
+    %conv2d : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%dequantize_per_tensor_default, %dequantize_per_channel_default, %dequantize_per_channel_default_1, [2, 2], [1, 1]), kwargs = {})
+    %relu : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d,), kwargs = {})
+    %quantize_per_tensor_default_1 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.quantize_per_tensor.default](args = (%relu, 0.004264777060598135, -128, -128, 127, torch.int8), kwargs = {})
+    %dequantize_per_tensor_default_1 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.dequantize_per_tensor.default](args = (%quantize_per_tensor_default_1, 0.004264777060598135, -128, -128, 127, torch.int8), kwargs = {})
+    %_scale_2 : [num_users=1] = get_attr[target=_scale_2]
+    %_zero_point_2 : [num_users=1] = get_attr[target=_zero_point_2]
+    %quantize_per_channel_default_2 : [num_users=1] = get_attr[target=_frozen_param2]
+    %dequantize_per_channel_default_2 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.dequantize_per_channel.default](args = (%quantize_per_channel_default_2, %_scale_2, %_zero_point_2, 0, -127, 127, torch.int8), kwargs = {})
+    %_scale_3 : [num_users=1] = get_attr[target=_scale_3]
+    %_zero_point_3 : [num_users=1] = get_attr[target=_zero_point_3]
+    %quantize_per_channel_default_3 : [num_users=1] = get_attr[target=_frozen_param3]
+    %dequantize_per_channel_default_3 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.dequantize_per_channel.default](args = (%quantize_per_channel_default_3, %_scale_3, %_zero_point_3, 0, -2147483647, 2147483647, torch.int32), kwargs = {})
+    %conv2d_1 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%dequantize_per_tensor_default_1, %dequantize_per_channel_default_2, %dequantize_per_channel_default_3, [2, 2], [1, 1]), kwargs = {})
+    %relu_1 : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d_1,), kwargs = {})
+    %quantize_per_tensor_default_2 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.quantize_per_tensor.default](args = (%relu_1, 0.0015989711973816156, -128, -128, 127, torch.int8), kwargs = {})
+    %dequantize_per_tensor_default_2 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.dequantize_per_tensor.default](args = (%quantize_per_tensor_default_2, 0.0015989711973816156, -128, -128, 127, torch.int8), kwargs = {})
+    %_scale_4 : [num_users=1] = get_attr[target=_scale_4]
+    %_zero_point_4 : [num_users=1] = get_attr[target=_zero_point_4]
+    %quantize_per_channel_default_4 : [num_users=1] = get_attr[target=_frozen_param4]
+    %dequantize_per_channel_default_4 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.dequantize_per_channel.default](args = (%quantize_per_channel_default_4, %_scale_4, %_zero_point_4, 0, -127, 127, torch.int8), kwargs = {})
+    %_scale_5 : [num_users=1] = get_attr[target=_scale_5]
+    %_zero_point_5 : [num_users=1] = get_attr[target=_zero_point_5]
+    %quantize_per_channel_default_5 : [num_users=1] = get_attr[target=_frozen_param5]
+    %dequantize_per_channel_default_5 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.dequantize_per_channel.default](args = (%quantize_per_channel_default_5, %_scale_5, %_zero_point_5, 0, -2147483647, 2147483647, torch.int32), kwargs = {})
+    %conv2d_2 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%dequantize_per_tensor_default_2, %dequantize_per_channel_default_4, %dequantize_per_channel_default_5, [2, 2], [1, 1]), kwargs = {})
+    %relu_2 : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d_2,), kwargs = {})
+    %quantize_per_tensor_default_3 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.quantize_per_tensor.default](args = (%relu_2, 0.0006584703805856407, -128, -128, 127, torch.int8), kwargs = {})
+    %dequantize_per_tensor_default_3 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.dequantize_per_tensor.default](args = (%quantize_per_tensor_default_3, 0.0006584703805856407, -128, -128, 127, torch.int8), kwargs = {})
+    %slice_copy : [num_users=1] = call_function[target=torch.ops.aten.slice_copy.Tensor](args = (%dequantize_per_tensor_default_3, 2, 0, 12), kwargs = {})
+    %quantize_per_tensor_default_4 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.quantize_per_tensor.default](args = (%slice_copy, 0.0006584703805856407, -128, -128, 127, torch.int8), kwargs = {})
+    %dequantize_per_tensor_default_4 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.dequantize_per_tensor.default](args = (%quantize_per_tensor_default_4, 0.0006584703805856407, -128, -128, 127, torch.int8), kwargs = {})
+    %slice_copy_1 : [num_users=1] = call_function[target=torch.ops.aten.slice_copy.Tensor](args = (%dequantize_per_tensor_default_4, 3, 0, 12), kwargs = {})
+    %quantize_per_tensor_default_5 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.quantize_per_tensor.default](args = (%slice_copy_1, 0.0006584703805856407, -128, -128, 127, torch.int8), kwargs = {})
+    %dequantize_per_tensor_default_5 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.dequantize_per_tensor.default](args = (%quantize_per_tensor_default_5, 0.0006584703805856407, -128, -128, 127, torch.int8), kwargs = {})
+    %avg_pool2d : [num_users=1] = call_function[target=torch.ops.aten.avg_pool2d.default](args = (%dequantize_per_tensor_default_5, (12, 12), [1, 1], [0, 0], False, False), kwargs = {})
+    %quantize_per_tensor_default_6 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.quantize_per_tensor.default](args = (%avg_pool2d, 0.0006584703805856407, -128, -128, 127, torch.int8), kwargs = {})
+    %dequantize_per_tensor_default_6 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.dequantize_per_tensor.default](args = (%quantize_per_tensor_default_6, 0.0006584703805856407, -128, -128, 127, torch.int8), kwargs = {})
+    %flatten : [num_users=1] = call_function[target=torch.ops.aten.flatten.using_ints](args = (%dequantize_per_tensor_default_6, 1), kwargs = {})
+    %quantize_per_tensor_default_7 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.quantize_per_tensor.default](args = (%flatten, 0.0006584703805856407, -128, -128, 127, torch.int8), kwargs = {})
+    %dequantize_per_tensor_default_7 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.dequantize_per_tensor.default](args = (%quantize_per_tensor_default_7, 0.0006584703805856407, -128, -128, 127, torch.int8), kwargs = {})
+    %_scale_6 : [num_users=1] = get_attr[target=_scale_6]
+    %_zero_point_6 : [num_users=1] = get_attr[target=_zero_point_6]
+    %quantize_per_channel_default_6 : [num_users=1] = get_attr[target=_frozen_param6]
+    %dequantize_per_channel_default_6 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.dequantize_per_channel.default](args = (%quantize_per_channel_default_6, %_scale_6, %_zero_point_6, 0, -127, 127, torch.int8), kwargs = {})
+    %_scale_7 : [num_users=1] = get_attr[target=_scale_7]
+    %_zero_point_7 : [num_users=1] = get_attr[target=_zero_point_7]
+    %quantize_per_channel_default_7 : [num_users=1] = get_attr[target=_frozen_param7]
+    %dequantize_per_channel_default_7 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.dequantize_per_channel.default](args = (%quantize_per_channel_default_7, %_scale_7, %_zero_point_7, 0, -2147483647, 2147483647, torch.int32), kwargs = {})
+    %linear : [num_users=1] = call_function[target=torch.ops.aten.linear.default](args = (%dequantize_per_tensor_default_7, %dequantize_per_channel_default_6, %dequantize_per_channel_default_7), kwargs = {})
+    %quantize_per_tensor_default_8 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.quantize_per_tensor.default](args = (%linear, 0.0004968902794644237, -8, -128, 127, torch.int8), kwargs = {})
+    %dequantize_per_tensor_default_8 : [num_users=1] = call_function[target=torch.ops.quantized_decomposed.dequantize_per_tensor.default](args = (%quantize_per_tensor_default_8, 0.0004968902794644237, -8, -128, 127, torch.int8), kwargs = {})
+    return (dequantize_per_tensor_default_8,)

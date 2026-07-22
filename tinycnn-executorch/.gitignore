@@ -1,0 +1,40 @@
+# Python environment and caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+
+# Third-party ExecuTorch and downloaded tools
+executorch/
+**/arm-scratch/
+toolchains/
+downloads/
+fvp_install/
+
+# Build temporary files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.o
+*.a
+*.d
+*.map
+*.tmp
+*.core
+core
+
+# Archives and temporary output
+dist/
+*.tar
+*.tar.gz
+*.zip
+
+# Editor / system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

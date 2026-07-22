@@ -1,0 +1,42 @@
+{
+  "schema_version": "0.1.0",
+  "model_name": "tinycnn",
+  "task": "classification_benchmark",
+  "source_format": "ExecuTorch PTE",
+  "runtime": "ExecuTorch with Ethos-U delegate artifact; target runtime port is not included",
+  "target": "ethos-u55-128",
+  "validation_platform": "Corstone-300 Ethos-U55 FVP",
+  "input_shape": [
+    1,
+    3,
+    96,
+    96
+  ],
+  "output_shape": [
+    1,
+    4
+  ],
+  "input_dtype": "float32",
+  "output_dtype": "float32",
+  "quantization": "PT2E INT8 for Ethos-U delegated subgraph",
+  "pte_filename": "tinycnn_u55.pte",
+  "pte_size_bytes": 31696,
+  "pte_sha256": "5523dd345ee3b99dab80a454cb039f79d4484d3c19a4d1700332959d50b654c2",
+  "load_mode": "qspi",
+  "load_path": "resources/tinycnn_u55.pte",
+  "delegated_subgraphs": 1,
+  "delegated_nodes": 29,
+  "npu_operators": 7,
+  "cpu_operators": 0,
+  "fvp_validation": {
+    "status": "PASS",
+    "platform": "Corstone-300 Ethos-U55 FVP",
+    "log": "/home/zwb/work/ethosu_tinycnn/tinycnn/build/fvp_qspi.log"
+  },
+  "limitations": [
+    "Prototype generator only; it does not port ExecuTorch Runtime to PSoC Edge E84.",
+    "Validation data is from Corstone-300 Ethos-U55 FVP, not a PSoC Edge E84 board.",
+    "TinyCNN is a random-weight classification benchmark, not a real gesture-recognition model.",
+    "Target-side backend returns an explicit not-implemented error until a real runtime port is added."
+  ]
+}

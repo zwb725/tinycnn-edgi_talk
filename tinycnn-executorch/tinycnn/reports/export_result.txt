@@ -1,0 +1,9 @@
+TinyCNN Ethos-U55 export result
+input_shape=(1, 3, 96, 96)
+output_shape=(1, 4)
+fp32_top1=1
+quantized_top1=1
+max_abs_error=0.00024946779012680054
+pte_path=/home/zwb/work/ethosu_tinycnn/tinycnn/build/tinycnn_u55.pte
+pte_size_bytes=31696
+intermediate_dir=/home/zwb/work/ethosu_tinycnn/tinycnn/build/intermediates
