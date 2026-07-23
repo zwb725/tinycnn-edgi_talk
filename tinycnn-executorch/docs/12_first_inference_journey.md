@@ -52,7 +52,7 @@ I 00:00:00.000000 executorch:EthosUBackend.cpp:zu] F籥:K区 利a
 
 可以从中读到的硬证据：
 
-- `pre-call tick=9095` → `post-call tick=9132`：NPU 真的忙了 **37 ms**，这是 NPU 干活的指纹，不是 busy-loop。
+- `pre-call tick=9095` → `post-call tick=9132`：`Method::execute()` 端到端返回耗时约 **37 ms**，证明调用链没有卡死；这不是纯 NPU 延迟。
 - `status=0`、`execute done status=0`：`Method::execute()` 没出任何 delegate 错误。
 - `top1=1`、`numel=4`、`output0[i] float_bits=…`：确实是 `[1, 4] float32`，且四条 log 把 4 个 float 都打出来了，能进一步与 FVP 对账。
 - `(input0 == output0 == 0x64480000)` 是 arena 内复用同一段，size 不一致是预期（input 110592B、output 16B）。
@@ -206,9 +206,9 @@ msh /> tinycnn_run                   # → inference PASS
 | 4. PTE → C 数组 → 嵌入 BSP `.cy_ml_model_data` | `link.ld` 用 `KEEP(*rt_ai_tinycnn_model_data.o(.rodata .rodata.*))`，运行时读到 base=`0x60588d70` | ✅ |
 | 5. BSP → `libexecutorch*.a` + `libethosu_core_driver.a` | `tinycnn_scons_build.log` 末尾 `size` 输出正常，无 undefined reference | ✅ |
 | 6. 板子上 `Program::load` + `load_method` | 日志输出 `method=forward`、`init complete planned_buffers=1 method_pool=524288 temp_pool=524288` | ✅ |
-| 7. `Method::execute()` 真正跑 NPU | `[executorch] pre-call tick=9095 → post-call tick=9132`，约 37 ms 耗时 | ✅ |
+| 7. `Method::execute()` 完整返回 | `[executorch] pre-call tick=9095 → post-call tick=9132`，端到端约 37 ms | ✅ |
 | 8. 输出 `[1, 4] float32` 被打回串口 | `top1=1`、四个 float_bits 全部打印 | ✅ |
-| 9. FVP 同 PTE 的输出对账（精度 + 量化误差） | 下一节优化项 #1 | ⏳ 未做 |
+| 9. FVP 同 PTE 的输出对账（Top-1 + 数值误差） | `tinycnn/reports/e84_fvp_final_validation.md`，最大绝对误差 `4.993568659e-07`，阈值 `1e-6` | ✅ |
 
 整条链 `1–8` 节点是 PASS 的；`9`（和 FVP 数值精度对齐）接下来就可以做。
 
@@ -216,9 +216,9 @@ msh /> tinycnn_run                   # → inference PASS
 
 ## 6. 还能做的优化（按风险/收益排序）
 
-1. **数值一致性**：拿同 PTE 重跑 FVP `executor_runner`，把 4 个 float 与板端 4 个 float_bits 做对齐。预期差异 < 1e-3；如果差异太大，要么是 input 输入 padding/对齐不一致，要么是 Ethos-U 量化表跟 FVP 不一致。
+1. **数值一致性**：已完成 E84/FVP 自动对账。E84 Top-1 = `1`，FVP Top-1 = `1`，最大绝对误差 `4.993568659e-07`，在 `1e-6` 阈值内；详见 `docs/13_e84_fvp_final_validation.md` 和 `tinycnn/reports/e84_fvp_final_validation.md`。
 
-2. **运行时间**：37 ms 对 CM55 + 110592 B 输入有点慢，常见可挖点：
+2. **运行时间**：37 ms 是 `Method::execute()` 端到端时间，不是纯 NPU 时间；如果继续优化，常见可挖点：
    - `METHOD_POOL` / `TEMP_POOL` 现在各 524288 B（共 1 MiB），超 `.cy_ml_arena_data` 容量，得分摊；
    - `input0` 当前 `scalar_type=6` 是 FP32，量化 PTE 通常期待 INT8，确认是不是 Vela 测了 FP32 输入；如果是浪费，把 input 通道先量化或者缩小批次。
 
@@ -237,6 +237,6 @@ msh /> tinycnn_run                   # → inference PASS
 
 ## 7. 下一步建议顺序（一句话）
 
-**先按优化 #1 拿 FVP 同 PTE 跑一次对比，再决定优化 #2 该不该动 arena 布局。**
+**E84/FVP 数值对账已经完成；下一步如果继续优化，应先区分 `Method::execute()` 端到端耗时、driver/IRQ 等待和纯 NPU 计数，再决定是否调整 arena 或输入量化路径。**
 
 > 同时把 §6 里的 PR 候选条目列出，争取在 WSL 侧把 library 顺序和 GOT 修补合并到一个候选 patch 上。

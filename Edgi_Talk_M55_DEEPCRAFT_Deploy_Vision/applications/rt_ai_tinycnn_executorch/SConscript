@@ -75,7 +75,9 @@ if GetDepend(['RT_AI_EXECUTORCH_RUNTIME_READY']):
     if not os.path.isfile(runtime_cpp):
         raise RuntimeError('RT-AK ExecuTorch runtime implementation is missing')
 
-    executorch_ws_root = '//wsl$/Ubuntu-22.04/home/zwb/work/ethosu_tinycnn'
+    default_executorch_ws_root = '//wsl$/Ubuntu-22.04/home/zwb/work/ethosu_tinycnn'
+    executorch_ws_root = os.environ.get('EXECUTORCH_WS_ROOT', default_executorch_ws_root)
+    executorch_ws_root = executorch_ws_root.replace('\\', '/')
     executorch_src_root = executorch_ws_root
     executorch_lib_root = executorch_ws_root + '/tinycnn/build/runner/executorch'
     ethosu_core_driver_root = executorch_ws_root + '/tinycnn/build/runner/examples/arm/executor_runner/target/target/core_software/core_driver'

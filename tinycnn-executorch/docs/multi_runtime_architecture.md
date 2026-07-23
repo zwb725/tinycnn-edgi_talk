@@ -41,8 +41,8 @@ flowchart LR
 
 ## What Is Not Shared
 
-- Chain A uses the E84 application/runtime path; Chain B uses ExecuTorch PTE and Corstone-300 FVP.
+- Chain A records the E84 board application/runtime path; Chain B records the ExecuTorch PTE and Corstone-300 FVP path. The later `tinycnn-edgi_talk` closure connects them through E84/FVP numerical comparison.
 - The model artifacts are different: Vela/TFLite/IMAI resources versus ExecuTorch PTE.
 - The current project does not run the same model through both runtimes for a fair performance comparison.
-- ExecuTorch Runtime has not been ported to E84 in this work.
+- In the original `zwb725/tinycnn` phase, ExecuTorch Runtime was not ported to E84; the follow-up `zwb725/tinycnn-edgi_talk` phase completed the BSP-specific E84 runtime path and board inference.
 - Latency from different models, runtimes, and platforms must not be compared directly.

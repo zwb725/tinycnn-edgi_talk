@@ -1,0 +1,100 @@
+telnetterminal0: Listening for serial connection on port 5000
+telnetterminal1: Listening for serial connection on port 5001
+telnetterminal2: Listening for serial connection on port 5002
+telnetterminal5: Listening for serial connection on port 5003
+
+    Ethos-U rev 136b7d75 --- Apr  8 2024 21:45:17
+    (C) COPYRIGHT 2019-2024 Arm Limited
+    ALL RIGHTS RESERVED
+
+[targetSetup] uart initialized
+[targetSetup] timing adapters begin
+[targetSetup] timing adapters done
+[targetSetup] ethosu_init begin
+[targetSetup] ethosu_init done
+[targetSetup] nvic done
+[targetSetup] mpu begin
+[targetSetup] mpu done
+[runner] main begin
+[runner] runtime_init begin
+[runner] runtime_init done
+[runner] input buffer vector ready
+[runner] pte_size ready
+[runner] ctx construct begin
+[runner] ctx construct done
+[runner] pte log begin
+PTE @ 0x73e00000 [----ET12]
+[runner] pte log done
+[runner] runner_init call
+[runner] runner_init begin
+[runner] loader ready
+PTE Model data loaded. Size: 31696 bytes.
+[runner] Program::load begin
+[runner] Program::load done
+[runner] program stored
+Model buffer loaded, has 1 methods
+Running method forward
+[runner] method name ready
+[runner] method_meta begin
+[runner] method_meta done
+Setup Method allocator pool. Size: 62914560 bytes.
+[runner] method allocator ready
+Setting up planned buffer 0, size 138240.
+[runner] memory manager ready
+[runner] load_method begin
+data:0x73e00070
+[runner] load_method done
+Method 'forward' loaded.
+Preparing inputs...
+[runner] prepare_input_tensors begin
+[runner] prepare_input_tensors done
+Input prepared.
+[runner] runner_init returned
+[runner] run_model begin
+Starting running 1 inferences...
+[runner] measurements started
+[runner] execute begin
+[runner] execute done
+NPU Inferences : 1
+NPU delegations: 1 (1.00 per inference)
+Profiler report, CPU cycles per operator:
+ethos-u : cycle_cnt : 18301 cycles (18301.00 per inference)
+Operator(s) total: 18301 CPU cycles (18301.00 per inference)
+Inference runtime: 1070301 CPU cycles total (1070301.00 per inference)
+NOTE: CPU cycle values and ratio calculations require FPGA and identical CPU/NPU frequency
+Inference CPU ratio: 99.95 %
+Inference NPU ratio: 0.05 %
+cpu_wait_for_npu_cntr : 505 CPU cycles (505.00 per inference)
+Ethos-U PMU report:
+ethosu_pmu_cycle_cntr : 247553 (247553.00 per inference)
+ethosu_pmu_cntr0 : 44542 (44542.00 per inference)
+ethosu_pmu_cntr1 : 3629 (3629.00 per inference)
+ethosu_pmu_cntr2 : 42419 (42419.00 per inference)
+ethosu_pmu_cntr3 : 501 (501.00 per inference)
+Ethos-U PMU Events:[ETHOSU_PMU_AXI0_RD_DATA_BEAT_RECEIVED, ETHOSU_PMU_AXI1_RD_DATA_BEAT_RECEIVED, ETHOSU_PMU_AXI0_WR_DATA_BEAT_WRITTEN, ETHOSU_PMU_NPU_IDLE]
+[runner] measurements stopped
+1 inferences finished
+[runner] print_outputs begin
+1 outputs: 
+Output[0][0]: (float) -0.020373
+Output[0][1]: (float) 0.067080
+Output[0][2]: (float) -0.059627
+Output[0][3]: (float) 0.062111
+[runner] print_outputs done
+Model run: 1
+[runner] run_model returned
+Model run: 1
+model_pte_program_size:     31696 bytes.
+model_pte_loaded_size:      31696 bytes.
+method_allocator_used:     138937 / 62914560  free: 62775623 ( used: 0 % ) 
+method_allocator_planned:  138240 bytes
+method_allocator_loaded:   681 bytes
+method_allocator_input:    16 bytes
+method_allocator_executor: 0 bytes
+temp_allocator:            2097152
+[runner] program complete
+Program complete, exiting.
+
+
+Info: /OSCI/SystemC: Simulation stopped by user.
+[warning ][main@0][250440 ns] Simulation stopped by user

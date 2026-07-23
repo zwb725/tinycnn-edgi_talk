@@ -1,0 +1,26 @@
+msh />tinycnn_run
+[TinyCNN] inference start
+[executorch] Ethos-U platform init start irq=38 base=0x44600000
+[executorch] Ethos-U platform init ok  irq=38 base=0x44600000
+[executorch] runtime_init model=tinycnn pte=0x60588d70 bytes=31696
+[executorch] method=forward
+I 00:00:00.000000 executorch:EthosUBackend.cpp:zu] F籥:K区 利a
+[executorch] input0=0x64480000 bytes=110592
+[executorch] output0=0x64480000 bytes=16
+[executorch] init complete planned_buffers=1 method_pool=524288 temp_pool=524288
+[TinyCNN] input addr=0x64480000 size=110592
+[executorch] input0 filled with ones scalar_type=6 bytes=110592
+[executorch] execute start n_in=1 n_out=1
+[executorch] pre-call tick=9095
+[executorch] post-call tick=9132 status=0
+[executorch] execute done status=0
+[executorch] output0=0x64480000 bytes=16
+[TinyCNN] output addr=0x64480000 size=16
+[executorch] output0 scalar_type=6 numel=4 bytes=16
+[executorch] output0 float top1=1
+[executorch] output0[0] float_bits=0xbca6e43b
+[executorch] output0[1] float_bits=0x3d896156
+[executorch] output0[2] float_bits=0xbd743b44
+[executorch] output0[3] float_bits=0x3d7e6867
+[executorch] Ethos-U platform deinit ok
+[TinyCNN] inference PASS
